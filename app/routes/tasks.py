@@ -31,12 +31,13 @@ def add_task():
         return redirect(url_for("auth.login"))
 
     title = request.form.get("title")
+    timing = request.form.get("timing")
     if title:
         new_task = {
             "name": title, 
             "status": "Pending", 
             "user_id": session["user_id"],
-            "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            "timing": timing.replace("T", " ") if timing else "N/A"
         }
         mongo.db.tasks.insert_one(new_task)
         flash("Task added successfully.", "success")
