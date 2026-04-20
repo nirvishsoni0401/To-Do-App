@@ -4,56 +4,58 @@
 {% block content %}
 
 <div class="task-box">
-    <h2>Your Tasks </h2>
+    <h2>Your Tasks</h2>
+
     <form action="{{ url_for('tasks.add_task') }}" method="POST" class="task-form">
-        <input type="text" name="title" placeholder="New task " required>
-        <input type="datetime-local" name="timing" required title="Task Timing">
+        <input type="text" name="title" placeholder="New task" required>
+        <input type="datetime-local" name="timing" required>
         <button type="submit" class="btn">Add</button>
     </form>
 
     {% if tasks %}
     <form method="POST" action="{{ url_for('tasks.clear') }}">
-        <button type="submit" class="btn btn-clear"> Clear All Tasks</button>
+        <button type="submit" class="btn btn-clear">Clear All Tasks</button>
     </form>
-<br>
 
-<table class="task-table">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Task</th>
-            <th>Status</th>
-            <th>Timing</th>
-            <th>Change</th>
-        </tr>
-    </thead>
+    <div class="table-wrapper">
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <th>Timing</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
-    <tbody>
-        {% for task in tasks %}
-        <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ task.name }}</td>
-            <td>
-                <span class="badge {{task.status | lower }}">{{task.status}}</span>
-            </td>
-            <td>{{ task.timing if task.timing else (task.created_at if task.created_at else 'N/A') }}</td>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ task.name }}</td>
+                    <td>
+                        <span class="badge {{task.status | lower }}">{{task.status}}</span>
+                    </td>
+                    <td>{{ task.timing if task.timing else 'N/A' }}</td>
+                    <td>
+                        {% if task.status != 'Done' %}
+                        <form action="{{ url_for('tasks.toggle_status', task_id=task.id) }}" method="POST">
+                            <button class="btn-small">Next</button>
+                        </form>
+                        {% endif %}
+                        <form action="{{ url_for('tasks.delete_task', task_id=task.id) }}" method="POST">
+                            <button class="btn-small delete-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-            <td>
-                {% if task.status != 'Done' %}
-                <form action="{{ url_for('tasks.toggle_status' , task_id = task.id )}}" method="POST" style="display: inline-block; margin-right: 5px;">
-                    <button type="submit" class="btn-small">Next</button>
-                </form>
-                {% endif %}
-                <form action="{{ url_for('tasks.delete_task', task_id = task.id )}}" method="POST" style="display: inline-block;">
-                    <button type="submit" class="btn-small" style="background-color: #f44336; border-color: #f44336;">Delete</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
     {% else %}
-    <p>No tasks Yet..</p>
+        <p>No tasks yet...</p>
     {% endif %}
 </div>
 
