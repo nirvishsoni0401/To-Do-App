@@ -1,0 +1,414 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables for unifying the theme */
+:root {
+    --bg-gradient-start: #0f2027;
+    --bg-gradient-mid: #203a43;
+    --bg-gradient-end: #2c5364;
+    
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-border: rgba(255, 255, 255, 0.1);
+    
+    --primary-color: #00f2fe;
+    --primary-color-hover: #4facfe;
+    
+    --text-main: #ffffff;
+    --text-muted: #e0e0e0;
+    
+    --danger-color: #fc4a1a;
+    --danger-hover: #f7b733;
+    
+    --success-color: #11998e;
+    --success-hover: #38ef7d;
+    
+    --font-family: 'Outfit', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-mid), var(--bg-gradient-end));
+    background-attachment: fixed;
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-main);
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* Header & Navigation */
+header {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 1.2rem 0;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #00f2fe, #4facfe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+nav a {
+    margin-left: 1.5rem;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background: var(--primary-color);
+    transition: width var(--transition-speed) ease, left var(--transition-speed) ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Main Layout */
+main.container {
+    flex: 1;
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Flash Messages */
+.flash {
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.flash.success {
+    background: rgba(17, 153, 142, 0.2);
+    border: 1px solid var(--success-color);
+    color: #38ef7d;
+}
+
+.flash.danger {
+    background: rgba(252, 74, 26, 0.2);
+    border: 1px solid var(--danger-color);
+    color: #ff7e67;
+}
+
+.flash.info {
+    background: rgba(0, 242, 254, 0.2);
+    border: 1px solid var(--primary-color);
+    color: #e0ffff;
+}
+
+/* Glassmorphism Containers (.login-box & .task-box) */
+.login-box, .task-box {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.6s ease-out;
+}
+
+.login-box h2, .task-box h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    background: linear-gradient(to right, #00f2fe, #4facfe);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+/* Forms & Inputs */
+.form-group {
+    margin-bottom: 1.8rem;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all var(--transition-speed);
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-color-hover));
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 242, 254, 0.4);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-clear {
+    background: linear-gradient(135deg, var(--danger-color), var(--danger-hover));
+    width: auto;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+.btn-clear:hover {
+    box-shadow: 0 8px 25px rgba(252, 74, 26, 0.4);
+}
+
+.btn-small {
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    font-family: inherit;
+    font-weight: 500;
+}
+
+.btn-small:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+}
+
+/* Task Specific Styles */
+.task-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.task-form input {
+    flex: 1;
+}
+
+.task-form .btn {
+    width: auto;
+    padding: 0 2.5rem;
+}
+
+/* Table */
+.task-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1.5rem;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.task-table th, .task-table td {
+    padding: 1.2rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.task-table th {
+    background: rgba(255, 255, 255, 0.03);
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+}
+
+.task-table tbody tr {
+    transition: background var(--transition-speed);
+}
+
+.task-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.task-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Badges */
+.badge {
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.badge.pending {
+    background: rgba(247, 183, 51, 0.15);
+    color: #f7b733;
+    border: 1px solid rgba(247, 183, 51, 0.3);
+}
+
+.badge.completed,
+.badge.done {
+    background: rgba(56, 239, 125, 0.15);
+    color: #38ef7d;
+    border: 1px solid rgba(56, 239, 125, 0.3);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid var(--card-border);
+    margin-top: auto;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Empty State */
+.task-box > p {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .task-form {
+        flex-direction: column;
+    }
+    
+    .task-form .btn {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .login-box, .task-box {
+        padding: 2rem 1.5rem;
+    }
+    
+    header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .task-table th, .task-table td {
+        padding: 1rem 0.5rem;
+        font-size: 0.9rem;
+    }
+}
