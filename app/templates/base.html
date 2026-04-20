@@ -7,37 +7,39 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>My To-Do App </h1>
-            <nav>
-                <a href="{{ url_for('tasks.view_tasks')}}">Home</a>
-                {% if 'user_id' in session %}
+
+<header>
+    <div class="container header-container">
+        <h1>My To-Do App</h1>
+        <nav class="nav">
+            <a href="{{ url_for('tasks.view_tasks')}}">Home</a>
+            {% if 'user_id' in session %}
                 <a href="{{ url_for('auth.logout')}}">Logout</a>
-                {% else %}
+            {% else %}
                 <a href="{{ url_for('auth.login')}}">Login</a>
                 <a href="{{ url_for('auth.register')}}">Register</a>
-                {% endif %}
-            </nav>
-        </div>
-    </header>
-
-    <main class="container">
-        {% with messages = get_flashed_messages(with_categories = True) %}
-            {% if messages %}
-                {% for category , mes in messages %}
-                    <div class="flash {{category}}">{{mes}}</div>
-                {% endfor %}
             {% endif %}
-        {% endwith %}
-        
-        {% block content %} {% endblock %}
-    </main> 
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    {% with messages = get_flashed_messages(with_categories = True) %}
+        {% if messages %}
+            {% for category , mes in messages %}
+                <div class="flash {{category}}">{{mes}}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     
-    <footer>
-        <div class="container">
-            <p> &copy; {{2026}} My Flask To-Do App </p>
-        </div>
-    </footer>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 My Flask To-Do App</p>
+    </div>
+</footer>
+
 </body>
 </html>
